@@ -7,14 +7,14 @@ public class Main {
     static HashMap<Character, Integer> map = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        map.put('I', 1); //ключ, значение
+        map.put('I', 1); //РєР»СЋС‡, Р·РЅР°С‡РµРЅРёРµ
         map.put('V', 5);
         map.put('X', 10);
 
         Scanner scanner = new Scanner(System.in);
         String[] stringMassive = scanner.nextLine().split(" ");
         if (stringMassive.length != 3) {
-            throw new IOException("необходимо два операнда.");
+            throw new IOException("РЅРµРѕР±С…РѕРґРёРјРѕ РґРІР° РѕРїРµСЂР°РЅРґР°.");
         }
         String numberOne = stringMassive[0];
         String symbol = stringMassive[1];
@@ -39,7 +39,7 @@ public class Main {
                 isRomanRightNum2 = true;
             }
         }
-        //boolean isRomanRightNum1 = Arrays.asList(romanRightNum).contains(stringMassive[0]); представление массива в виде списка
+        //boolean isRomanRightNum1 = Arrays.asList(romanRightNum).contains(stringMassive[0]); РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РјР°СЃСЃРёРІР° РІ РІРёРґРµ СЃРїРёСЃРєР°
         //boolean isRomanRightNum2 = Arrays.asList(romanRightNum).contains(stringMassive[2]);
 
         if (!isFirstNumArab & isRomanRightNum1) {
@@ -55,13 +55,13 @@ public class Main {
         }
 
         if (!isFirstNumArab && isSecondNumArab) {
-            throw new IOException("т.к. используются одновременно разные системы счисления.");
+            throw new IOException("С‚.Рє. РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ СЂР°Р·РЅС‹Рµ СЃРёСЃС‚РµРјС‹ СЃС‡РёСЃР»РµРЅРёСЏ.");
 
         } else if (isFirstNumArab && !isSecondNumArab) {
-            throw new IOException("т.к. используются одновременно разные системы счисления.");
+            throw new IOException("С‚.Рє. РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ СЂР°Р·РЅС‹Рµ СЃРёСЃС‚РµРјС‹ СЃС‡РёСЃР»РµРЅРёСЏ.");
         }
 
-        if (isOk(arab1) & isOk(arab2)) { // isOk - вернет true, если числа принадлежат (1;10);
+        if (isOk(arab1) & isOk(arab2)) { // isOk - РІРµСЂРЅРµС‚ true, РµСЃР»Рё С‡РёСЃР»Р° РїСЂРёРЅР°РґР»РµР¶Р°С‚ (1;10);
             int result;
             switch (symbol) {
                 case "-":
@@ -77,14 +77,18 @@ public class Main {
                     result = (arab1 / arab2);
                     break;
                 default:
-                    throw new IOException("т.к. формат математической операции не удовлетворяет заданию" +
-                            "( только +, -, /, *).");
+                    throw new IOException("С‚.Рє. С„РѕСЂРјР°С‚ РјР°С‚РµРјР°С‚РёС‡РµСЃРєРѕР№ РѕРїРµСЂР°С†РёРё РЅРµ СѓРґРѕРІР»РµС‚РІРѕСЂСЏРµС‚ Р·Р°РґР°РЅРёСЋ" +
+                            "( С‚РѕР»СЊРєРѕ +, -, /, *).");
             }
 
             boolean b = arab1 >= arab2;
 
             if (!isFirstNumArab & !isSecondNumArab && !b && symbol.equals("-")) {
-                throw new IOException("т.к. в римской системе нет отрицательных чисел.");
+                throw new IOException("С‚.Рє. РІ СЂРёРјСЃРєРѕР№ СЃРёСЃС‚РµРјРµ РЅРµС‚ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹С… С‡РёСЃРµР».");
+            }
+
+            if (!isFirstNumArab & !isSecondNumArab && ((arab1 - arab2) == 0)) {
+                throw new IOException("С‚.Рє. РІ СЂРёРјСЃРєРѕР№ СЃРёСЃС‚РµРјРµ РїРѕ Р·Р°РґР°РЅРёСЋ РЅРµС‚ РѕС‚РІРµС‚Р° 0.");
             }
 
             if (!isFirstNumArab & !isSecondNumArab) {
@@ -94,23 +98,23 @@ public class Main {
             }
 
         } else {
-            throw new IOException("т.к. формат математической операции не удовлетворяет заданию.");
+            throw new IOException("С‚.Рє. С„РѕСЂРјР°С‚ РјР°С‚РµРјР°С‚РёС‡РµСЃРєРѕР№ РѕРїРµСЂР°С†РёРё РЅРµ СѓРґРѕРІР»РµС‚РІРѕСЂСЏРµС‚ Р·Р°РґР°РЅРёСЋ.");
         }
     }
 
     private static int romaToArab(String s) { // s = "VII";
         int result = 0;
         int prev = 0;
-        for (int i = s.length() - 1; i >= 0; i--) { //считаем римскую цифру с конца, первое зн-е i=2;
-            char ch = s.charAt(i); // берем символ под инднексом i из строки string;
-            int curr = map.get(ch); //берем значение из мапы MAP по ключу ch (I - 1);
-            if (curr < prev) {  // если текущий меньше предыдущего, (prev = 0), то
-                result -= curr; // result = result - curr(текущий);
-            } else {            // (в случае примера он больше), тогда
-                result += curr; // result = result + curr(текущий) (все еще 1);
+        for (int i = s.length() - 1; i >= 0; i--) { //СЃС‡РёС‚Р°РµРј СЂРёРјСЃРєСѓСЋ С†РёС„СЂСѓ СЃ РєРѕРЅС†Р°, РїРµСЂРІРѕРµ Р·РЅ-Рµ i=2;
+            char ch = s.charAt(i); // Р±РµСЂРµРј СЃРёРјРІРѕР» РїРѕРґ РёРЅРґРЅРµРєСЃРѕРј i РёР· СЃС‚СЂРѕРєРё string;
+            int curr = map.get(ch); //Р±РµСЂРµРј Р·РЅР°С‡РµРЅРёРµ РёР· РјР°РїС‹ MAP РїРѕ РєР»СЋС‡Сѓ ch (I - 1);
+            if (curr < prev) {  // РµСЃР»Рё С‚РµРєСѓС‰РёР№ РјРµРЅСЊС€Рµ РїСЂРµРґС‹РґСѓС‰РµРіРѕ, (prev = 0), С‚Рѕ
+                result -= curr; // result = result - curr(С‚РµРєСѓС‰РёР№);
+            } else {            // (РІ СЃР»СѓС‡Р°Рµ РїСЂРёРјРµСЂР° РѕРЅ Р±РѕР»СЊС€Рµ), С‚РѕРіРґР°
+                result += curr; // result = result + curr(С‚РµРєСѓС‰РёР№) (РІСЃРµ РµС‰Рµ 1);
             }
-            prev = curr; // приравниваем, теперь для след итерации (prev)предыдущий инт = 1, а не 0;
-        } // снова пока не станет i = 0;
+            prev = curr; // РїСЂРёСЂР°РІРЅРёРІР°РµРј, С‚РµРїРµСЂСЊ РґР»СЏ СЃР»РµРґ РёС‚РµСЂР°С†РёРё (prev)РїСЂРµРґС‹РґСѓС‰РёР№ РёРЅС‚ = 1, Р° РЅРµ 0;
+        } // СЃРЅРѕРІР° РїРѕРєР° РЅРµ СЃС‚Р°РЅРµС‚ i = 0;
         return result;
     }
 
