@@ -2,12 +2,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Calc {
+public class Main {
 
     static HashMap<Character, Integer> map = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-
         map.put('I', 1); //ключ, значение
         map.put('V', 5);
         map.put('X', 10);
@@ -18,7 +17,12 @@ public class Calc {
             throw new IOException("необходимо два операнда.");
         }
         String numberOne = stringMassive[0];
+        String symbol = stringMassive[1];
         String numberTwo = stringMassive[2];
+        System.out.println(calc(numberOne, symbol, numberTwo));
+    }
+    public static String calc(String numberOne, String symbol, String numberTwo) throws IOException {
+
         boolean isFirstNumArab = isArab(numberOne);// 123 -> true :: IV -> false
         boolean isSecondNumArab = isArab(numberTwo);
         int arab1;
@@ -59,7 +63,6 @@ public class Calc {
 
         if (isOk(arab1) & isOk(arab2)) { // isOk - вернет true, если числа принадлежат (1;10);
             int result;
-            String symbol = stringMassive[1];
             switch (symbol) {
                 case "-":
                     result = (arab1 - arab2);
@@ -85,10 +88,9 @@ public class Calc {
             }
 
             if (!isFirstNumArab & !isSecondNumArab) {
-                String resultRoman = convertNumToRoman(result);
-                System.out.println(resultRoman);
+                return convertNumToRoman(result);
             } else {
-                System.out.println(result);
+                return  String.valueOf(result);
             }
 
         } else {
@@ -132,8 +134,7 @@ public class Calc {
                 "LXXVIII", "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII",
                 "LXXXVIII", "LXXXIX", "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"
         };
-        final String s = roman[numArabian];
-        return s;
+        return roman[numArabian];
     }
 
     private static boolean isOk(int i) {
