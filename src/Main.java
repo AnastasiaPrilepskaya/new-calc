@@ -12,16 +12,20 @@ public class Main {
         map.put('X', 10);
 
         Scanner scanner = new Scanner(System.in);
-        String[] stringMassive = scanner.nextLine().split(" ");
+        String stringMas = scanner.nextLine();
+
+        System.out.println(calc(stringMas));
+    }
+    public static String calc(String stringMas) throws IOException {
+
+        String[] stringMassive = stringMas.split(" ");
         if (stringMassive.length != 3) {
             throw new IOException("необходимо два операнда.");
         }
+
         String numberOne = stringMassive[0];
         String symbol = stringMassive[1];
         String numberTwo = stringMassive[2];
-        System.out.println(calc(numberOne, symbol, numberTwo));
-    }
-    public static String calc(String numberOne, String symbol, String numberTwo) throws IOException {
 
         boolean isFirstNumArab = isArab(numberOne);// 123 -> true :: IV -> false
         boolean isSecondNumArab = isArab(numberTwo);
@@ -87,7 +91,7 @@ public class Main {
                 throw new IOException("т.к. в римской системе нет отрицательных чисел.");
             }
 
-            if (!isFirstNumArab & !isSecondNumArab && ((arab1 - arab2) == 0)) {
+            if (!isFirstNumArab & !isSecondNumArab && ((arab1 - arab2) == 0) && symbol.equals("-")) {
                 throw new IOException("т.к. в римской системе по заданию нет ответа 0.");
             }
 
